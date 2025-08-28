@@ -41,4 +41,8 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 });
 
+app.get("/", async (req, res) => {
+  res.send("hello world");
+});
+
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
