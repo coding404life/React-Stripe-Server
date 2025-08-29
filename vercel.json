@@ -1,1 +1,41 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node@3.0.0"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/create-checkout-session",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://e-eren.vercel.app"
+        },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS" },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "src": "/create-checkout-session",
+      "methods": ["OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "https://e-eren.vercel.app",
+        "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "status": 204
+    },
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ]
+}

@@ -9,10 +9,14 @@ const app = express();
 const PORT = 4242;
 
 app.use(express.static("public"));
-app.use(cors({ origin: DOMAIN }));
+app.use(
+  cors({
+    origin: DOMAIN,
+  })
+);
 app.use(express.json());
 
-app.post("/create-checkout-session", async (req, res) => {
+const createCheckoutSession = async (req, res) => {
   const items = req.body.items.map((item) => {
     return {
       price_data: {
@@ -39,7 +43,9 @@ app.post("/create-checkout-session", async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
-});
+};
+
+app.post("/create-checkout-session", createCheckoutSession);
 
 app.get("/", async (req, res) => {
   res.send("hello world");
